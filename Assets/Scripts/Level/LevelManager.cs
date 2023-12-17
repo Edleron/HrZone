@@ -27,7 +27,8 @@ public class LevelManager : MonoBehaviour
     }
 
     private void NextLevel(){
-        statePocess++;
+        if (statePocess < (Roads.Count-1)) statePocess++;
+        Debug.Log(statePocess);
         Roads[statePocess].SetActive(true);
     }
 }

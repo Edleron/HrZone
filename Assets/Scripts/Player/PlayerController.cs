@@ -6,21 +6,26 @@ using UnityEngine.AI;
 public class PlayerController : MonoBehaviour
 {
     private NavMeshAgent agent;
-
+    private bool isInput = false;
+    private Vector3 setOneAttack = new Vector3(-26, 2.1f, 1);
+    private Vector3 setTwoAttack = new Vector3(3, 2, 2);
+    
+    private int setTrans = 0;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
         if (agent == null)
         {
-            // Eðer NavMeshAgent bileþeni eklenmemiþse, bir hata mesajý yazdýr
+            
             Debug.LogError("NavMeshAgent component not found on the Player game object.");
         }
     }
 
     void Update()
     {
-        // Sol fare tuþuna týklama kontrolü yap
+        if (isInput) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             // Mouse pozisyonunu al
@@ -28,11 +33,27 @@ public class PlayerController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(mousePosition);
             RaycastHit hit;
 
-            // Raycast kullanarak týklanan noktanýn geçerli bir yere olup olmadýðýný kontrol et
+            // Raycast kullanarak tï¿½klanan noktanï¿½n geï¿½erli bir yere olup olmadï¿½ï¿½ï¿½nï¿½ kontrol et
             if (Physics.Raycast(ray, out hit))
             {
                  agent.SetDestination(hit.point);
             }
         }
+    }
+
+    public void transactionStart(){
+        if (setTrans < 3) setTrans++;
+        agent.enabled = false;
+        if (setTrans == 1) this.transform.position = setOneAttack;
+        if (setTrans == 2) this.transform.position = setTwoAttack;
+        agent.enabled = true;
+    }
+
+    public void setInputTrue(){
+        isInput = true;
+    }
+
+    public void setInputFalse(){
+        isInput = false;
     }
 }

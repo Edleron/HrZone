@@ -7,20 +7,36 @@ public class PlayerEvents : MonoBehaviour
 {
    private string trigObject = "";
 
+   private void OnEnable()
+   {
+        EventManager.onLevelProcess += OnCompleted;
+   }
+
+    private void OnDisable()
+   {
+        EventManager.onLevelProcess -= OnCompleted;
+   }
+
     private void OnTriggerEnter(Collider other)
     {
        if (other.CompareTag("SETMİNİ"))
        {
-            // Bir nesne trigger alanından çıktığında bu kod çalışır
-            // Debug.Log(other.name + " has exited the trigger zone.");
-            // EventManager.Fire_onGameTriggerEnter(other.name);
             trigObject = other.name;
             EventManager.Fire_UITriggerOpen(other.name);
-            Invoke("OnTimeSetLevel", 5);
+            this.gameObject.GetComponent<PlayerController>().setInputTrue();
        }
 
-       if(other.CompareTag("SETLEVEL")){
-         this.transform.position = new Vector3(-26, 2.1f, 1);
+       if(other.CompareTag("SETLEVEL"))
+       {
+          EventManager.Fire_onLevelProcess();
+          this.gameObject.GetComponent<PlayerController>().transactionStart();
+       }
+
+       if (other.CompareTag("SETBOSS"))
+       {
+            trigObject = other.name;
+            EventManager.Fire_UITriggerOpen(other.name);
+            this.gameObject.GetComponent<PlayerController>().setInputTrue();
        }
     }
 
@@ -28,14 +44,14 @@ public class PlayerEvents : MonoBehaviour
     {
        if (other.CompareTag("SETMİNİ"))
        {
-            // Bir nesne trigger alanından çıktığında bu kod çalışır
-            // Debug.Log(other.name + " has exited the trigger zone.");
             EventManager.Fire_onGameTriggerExit(other.name);
+            this.gameObject.GetComponent<PlayerController>().setInputFalse();
        }
     }
 
-    private void OnTimeSetLevel(){
-         EventManager.Fire_onLevelProcess();
+    private void OnCompleted()
+    {
+         this.gameObject.GetComponent<PlayerController>().setInputFalse();
          GameObject destObject =  GameObject.Find(trigObject);
          EventManager.Fire_onGameTriggerExit(trigObject);
          Destroy(destObject);

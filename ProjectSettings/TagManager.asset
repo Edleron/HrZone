@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SETLEVEL
   - "SETM\u0130N\u0130"
+  - SETBOSS
   layers:
   - Default
   - TransparentFX

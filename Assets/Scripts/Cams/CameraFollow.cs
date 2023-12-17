@@ -54,6 +54,36 @@ public class CameraFollow : MonoBehaviour
                     // target = newTarget.transform;
                     target = Test[0].transform;
                     break;
+                case "MiniLevelGame-2":
+                    originalTarget = target;
+                    // target = newTarget.transform;
+                    target = Test[1].transform;
+                    break;
+                case "MiniLevelGame-3":
+                    originalTarget = target;
+                    // target = newTarget.transform;
+                    target = Test[2].transform;
+                    break;
+                case "MiniLevelGame-4":
+                    originalTarget = target;
+                    // target = newTarget.transform;
+                    target = Test[3].transform;
+                    break;
+                case "MiniLevelGame-5":
+                    originalTarget = target;
+                    // target = newTarget.transform;
+                    target = Test[4].transform;
+                    break;
+                case "MiniLevelGame-6":
+                    originalTarget = target;
+                    // target = newTarget.transform;
+                    target = Test[5].transform;
+                    break;
+                case "MainLevelGame-1":
+                    originalTarget = target;
+                    // target = newTarget.transform;
+                    target = Test[6].transform;
+                    break;
             }
             // isCameraLocked = true;
             UpdateCameraPosition();

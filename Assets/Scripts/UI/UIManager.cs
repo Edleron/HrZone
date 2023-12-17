@@ -5,11 +5,13 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public List<GameObject> Info = new List<GameObject>();
+    public GameObject CompletedPanel;
     private int statePocess = 0;
 
     private LevelManager levelManager;
     
     private void Awake(){
+        CompletedPanel.SetActive(false);
         levelManager = this.gameObject.GetComponent<LevelManager>();
 
         foreach (var item in Info)
@@ -23,12 +25,14 @@ public class UIManager : MonoBehaviour
     {
         EventManager.UITriggerOpen += OpenPanel;
         EventManager.UITriggerClosed += ClosedPanel;
+        EventManager.onLevelProcess += CompletedFalse;
     }
 
     private void OnDisable()
     {
         EventManager.UITriggerOpen -= OpenPanel;
         EventManager.UITriggerClosed -= ClosedPanel;
+        EventManager.onLevelProcess -= CompletedFalse;
     }
 
     private void OpenPanel(string dummy){
@@ -39,6 +43,11 @@ public class UIManager : MonoBehaviour
 
     private void ClosedPanel(string dummy){
         Info[statePocess].SetActive(false);
+        if (statePocess != 0) CompletedPanel.SetActive(true);
         statePocess++;
+    }
+
+    private void CompletedFalse(){
+        CompletedPanel.SetActive(false);
     }
 }
