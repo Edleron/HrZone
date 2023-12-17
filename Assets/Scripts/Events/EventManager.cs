@@ -15,6 +15,9 @@ public class EventManager
     public static event Action<string> UITriggerClosed;
     public static void Fire_UITriggerClosed(string value) { UITriggerClosed?.Invoke(value); }
 
+    public static event Action onOpenCodePanel;
+    public static void Fire_onOpenCodePanel() { onOpenCodePanel?.Invoke(); }
+
 
     public static event Action onLevelProcess;
     public static void Fire_onLevelProcess() { onLevelProcess?.Invoke(); }

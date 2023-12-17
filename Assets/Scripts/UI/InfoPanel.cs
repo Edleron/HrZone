@@ -32,14 +32,22 @@ public class InfoPanel : MonoBehaviour
     private void ChangeText()
     {
         index++;
-        string newText = infoText[index];
-        if (textMesh != null)
+        try
         {
-            textMesh.text = newText;
+            string newText = infoText[index];
+            if (textMesh != null)
+            {
+                textMesh.text = newText;
+            }
+            else
+            {
+                Debug.LogError("Text Mesh Pro bileşeni atanmamış!");
+            }
         }
-        else
+        catch (System.Exception ex)
         {
-            Debug.LogError("Text Mesh Pro bileşeni atanmamış!");
+             // TODO
         }
+        
     }
 }
