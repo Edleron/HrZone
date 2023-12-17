@@ -47,7 +47,6 @@ public class CameraFollow : MonoBehaviour
         GameObject newTarget = GameObject.Find(name);
         if (newTarget != null)
         {
-            Debug.Log(newTarget.name);
             switch (newTarget.name)
             {
                 case "MiniLevelGame-1":
@@ -64,7 +63,7 @@ public class CameraFollow : MonoBehaviour
     private void SetTargetExit(string name)
     {
         offset = new Vector3(0, 7.5f, 10);
-         smoothSpeed = 0.125f;
+        smoothSpeed = 0.125f;
         if (originalTarget != null)
         {
             target = originalTarget;
